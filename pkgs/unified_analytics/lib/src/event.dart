@@ -557,6 +557,58 @@ final class Event {
           },
         );
 
+  /// Provides information about a project's iOS/macOS plugins.
+  ///
+  /// [commandPath] - information about the flutter command, such as "build/ios".
+  /// command: 'build ios'
+  ///
+  /// [swiftPackageManagerUsed] - if Swift Package Manager can be used for the
+  /// project's plugins.
+  ///
+  /// [swiftPackageManagerFeatureEnabled] - if the Swift Package Manager feature
+  /// flag is on. If false, Swift Package Manager is off for all projects on
+  /// the development machine.
+  ///
+  /// [projectDisabledSwiftPackageManager] - if the project's .pubspec has
+  /// `disable-swift-package-manager: true`. This turns off Swift Package
+  /// Manager for a single project.
+  ///
+  /// [projectHasSwiftPackageManagerIntegration] - if the Xcode project has
+  /// Swift Package Manager integration. If false, the project needs to update.
+  ///
+  /// [swiftPackageManagerPlugins] - the number of plugins that was added to
+  /// the project using Swift Package Manager integration.
+  ///
+  /// [cocoapodsPlugins] - the number of plugins that was added to the project
+  /// using CocoaPods integration.
+  ///
+  /// TODO: Check Flutter SDK already in event??
+  Event.flutterSwiftPackageManager({
+    required String commandPath,
+    required bool swiftPackageManagerUsed,
+    required String swiftPackageManagerStatus,
+    required bool swiftPackageManagerFeatureEnabled,
+    required bool projectDisabledSwiftPackageManager,
+    required bool projectHasSwiftPackageManagerIntegration,
+    required int swiftPackageManagerPlugins,
+    required int cocoapodsPlugins,
+  }) : this._(
+          eventName: DashEvent.flutterSwiftPackageManager,
+          eventData: {
+            'commandPath': commandPath,
+            'swiftPackageManagerUsed': swiftPackageManagerUsed,
+            'swiftPackageManagerStatus': swiftPackageManagerStatus,
+            'swiftPackageManagerFeatureEnabled':
+                swiftPackageManagerFeatureEnabled,
+            'projectDisabledSwiftPackageManager':
+                projectDisabledSwiftPackageManager,
+            'projectHasSwiftPackageManagerIntegration':
+                projectHasSwiftPackageManagerIntegration,
+            'swiftPackageManagerPlugins': swiftPackageManagerPlugins,
+            'cocoapodsPlugins': cocoapodsPlugins,
+          },
+        );
+
   // TODO: eliasyishak, remove this or replace once we have a generic
   //  timing event that can be used by potentially more than one DashTool
   Event.hotReloadTime({required int timeMs})

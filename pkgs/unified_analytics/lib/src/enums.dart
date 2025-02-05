@@ -74,7 +74,7 @@ enum DashEvent {
   ),
   codeSizeAnalysis(
     label: 'code_size_analysis',
-    description: 'Indicates when the "--analyize-size" command is run',
+    description: 'Indicates when the "--analyze-size" command is run',
     toolOwner: DashTool.flutterTool,
   ),
   commandUsageValues(
@@ -96,6 +96,11 @@ enum DashEvent {
   flutterCommandResult(
     label: 'flutter_command_result',
     description: 'Provides information about flutter commands that ran',
+    toolOwner: DashTool.flutterTool,
+  ),
+  flutterSwiftPackageManager(
+    label: 'flutter_swift_package_manager',
+    description: 'Information for iOS/macOS plugins',
     toolOwner: DashTool.flutterTool,
   ),
   hotReloadTime(
