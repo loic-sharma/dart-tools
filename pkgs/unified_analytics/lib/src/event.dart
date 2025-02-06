@@ -557,10 +557,10 @@ final class Event {
           },
         );
 
-  /// Provides information about a project's iOS/macOS plugins.
+  /// Provides information about the plugins injected into an iOS or macOS
+  /// project.
   ///
-  /// [commandPath] - information about the flutter command, such as "build/ios".
-  /// command: 'build ios'
+  /// [platform] - The project's platform. Either 'ios' or 'macos'.
   ///
   /// [swiftPackageManagerUsed] - if Swift Package Manager can be used for the
   /// project's plugins.
@@ -576,36 +576,39 @@ final class Event {
   /// [projectHasSwiftPackageManagerIntegration] - if the Xcode project has
   /// Swift Package Manager integration. If false, the project needs to update.
   ///
-  /// [swiftPackageManagerPlugins] - the number of plugins that was added to
-  /// the project using Swift Package Manager integration.
+  /// [pluginCount] - the total number of plugins for this project. A plugin
+  /// can be compatible with both Swift Package Manager and CocoaPods. Plugins
+  /// compatible with both will be counted in both [swiftPackageCount] and
+  /// [podCount].
   ///
-  /// [cocoapodsPlugins] - the number of plugins that was added to the project
-  /// using CocoaPods integration.
+  /// [swiftPackageCount] - the number of plugins compatible with Swift Package
+  /// Manager. This is less than or equal to [pluginCount].
   ///
-  /// TODO: Check Flutter SDK already in event??
+  /// [podCount] - the number of plugins compatible with CocoaPods. This is less
+  /// than or equal to [podCount].
   Event.flutterSwiftPackageManager({
-    required String commandPath,
+    required String platform,
     required bool swiftPackageManagerUsed,
-    required String swiftPackageManagerStatus,
     required bool swiftPackageManagerFeatureEnabled,
     required bool projectDisabledSwiftPackageManager,
     required bool projectHasSwiftPackageManagerIntegration,
-    required int swiftPackageManagerPlugins,
-    required int cocoapodsPlugins,
+    required int pluginCount,
+    required int swiftPackageCount,
+    required int podCount,
   }) : this._(
           eventName: DashEvent.flutterSwiftPackageManager,
           eventData: {
-            'commandPath': commandPath,
+            'platform': platform,
             'swiftPackageManagerUsed': swiftPackageManagerUsed,
-            'swiftPackageManagerStatus': swiftPackageManagerStatus,
             'swiftPackageManagerFeatureEnabled':
                 swiftPackageManagerFeatureEnabled,
             'projectDisabledSwiftPackageManager':
                 projectDisabledSwiftPackageManager,
             'projectHasSwiftPackageManagerIntegration':
                 projectHasSwiftPackageManagerIntegration,
-            'swiftPackageManagerPlugins': swiftPackageManagerPlugins,
-            'cocoapodsPlugins': cocoapodsPlugins,
+            'pluginCount': pluginCount,
+            'swiftPackageCount': swiftPackageCount,
+            'podCount': podCount,
           },
         );
 
